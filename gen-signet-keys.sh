@@ -34,7 +34,8 @@ if [[ "$MINERENABLED" == "1" && ("$SIGNETCHALLENGE" == "" || "$PRIVKEY" == "") ]
     #wait a bit for startup
     sleep 5s
     #create wallet
-    $BITCOINCLI createwallet "temp"
+    # todo, redo to work with descriptors
+    $BITCOINCLI -named createwallet wallet_name="tmp" descriptors=false
     #export future signet seeding key data
     ADDR=$($BITCOINCLI getnewaddress)
     PRIVKEY=$($BITCOINCLI dumpprivkey $ADDR)
