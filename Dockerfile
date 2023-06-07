@@ -1,6 +1,6 @@
 FROM debian:buster-slim as builder
 
-ARG BITCOIN_VERSION=${BITCOIN_VERSION:-24.0.1}
+ARG BITCOIN_VERSION=${BITCOIN_VERSION:-25.0}
 ARG TRIPLET=${TRIPLET:-"x86_64-linux-gnu"}
 
 RUN  apt-get update && \
