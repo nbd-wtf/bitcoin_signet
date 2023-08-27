@@ -23,12 +23,12 @@ Bitcoin Signet provides a sandboxed environment for Bitcoin, allowing developers
 
 ### ⛏ Mining Configuration:
 
-- `BLOCKPRODUCTIONDELAY`: Sleep period between mining blocks. Defaults to a specified value.
+- `BLOCKPRODUCTIONDELAY`: Sleep period between mining blocks. Defaults to a specified value. (**mining mode only**)
   - If `~/.bitcoin/BLOCKPRODUCTIONDELAY.txt` is present, this value will be used, allowing dynamic changes.
-- `MINERENABLED`: Flag to enable the mining chain.
-- `NBITS`: Sets the minimum difficulty in mining.
-- `PRIVKEY`: Private key of the Signet signer. If `MINERENABLED=1` and not provided, it will be generated.
-- `MINETO`: Address to mine to. If not provided, a new address will be generated for each block.
+- `MINERENABLED`: Flag to enable the mining chain. (**mining mode only**)
+- `NBITS`: Sets the minimum difficulty in mining. (**mining mode only**)
+- `PRIVKEY`: Private key of the Signet signer. If `MINERENABLED=1` and not provided, it will be generated. (**mining mode only**)
+- `MINETO`: Address to mine to. If not provided, a new address will be generated for each block. (**mining mode only**)
 - `SIGNETCHALLENGE`: Sets the valid block producer for this Signet. Required for client-mode.
   - If `MINERENABLED=1` and not provided, it will be generated. If provided, `PRIVKEY` must also be populated.
 
