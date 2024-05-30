@@ -27,6 +27,9 @@ LABEL org.opencontainers.image.licenses=MIT
 LABEL org.opencontainers.image.source="https://github.com/nbd-wtf/bitcoin_signet"
 
 ENV BITCOIN_DIR /root/.bitcoin 
+#RUN mkdir -p /root/.bitcoin 
+RUN mkdir -p /mnt/task/btc-data
+RUN ln -s /mnt/task/btc-data /root/.bitcoin
 
 ENV NBITS=${NBITS}
 ENV SIGNETCHALLENGE=${SIGNETCHALLENGE}
@@ -54,7 +57,7 @@ ENV MINERENABLED=${MINERENABLED:-"1"}
 ENV MINETO=${MINETO:-""}
 ENV EXTERNAL_IP=${EXTERNAL_IP:-""} 
 
-VOLUME $BITCOIN_DIR
+#VOLUME $BITCOIN_DIR
 EXPOSE 28332 28333 28334 38332 38333 38334
 RUN  apt-get update && \
      apt-get install -qq --no-install-recommends procps python3 python3-pip jq && \

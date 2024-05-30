@@ -46,10 +46,10 @@ if [[ "$ADDNODE" != "" ]]; then
     done
 fi
  
-
 if [[ "$I2PSAM" != "" ]]; then
     echo "i2psam=$I2PSAM"
 fi
+
 if [[ "$ONIONPROXY" != "" ]]; then
     echo "onion=$ONIONPROXY" # unless have static IP won't resolve the control port as domain
 fi
@@ -61,3 +61,32 @@ fi
 if [[ "$TORCONTROL" != "" ]]; then
     echo "torcontrol=$TORCONTROL"
 fi
+
+if [[ "$DBCACHE" != "" ]]; then
+    echo "dbcache=$DBCACHE"
+fi
+
+if [[ "$PAR" != "" ]]; then
+    echo "par=$PAR"
+fi
+
+if [[ "$RPCWORKQUEUE" != "" ]]; then
+    echo "rpcworkqueue=$RPCWORKQUEUE"
+fi
+
+if [[ "$MAXCONNECTIONS" != "" ]]; then
+    echo "maxconnections=$MAXCONNECTIONS"
+fi
+
+if [[ "$TIMEOUT" != "" ]]; then
+    echo "timeout=$TIMEOUT"
+fi
+
+if [[ "$RPCTHREADS" != "" ]]; then
+    echo "rpcthreads=$RPCTHREADS"
+fi
+
+if [[ "$RPCSERVERTIMEOUT" != "" ]]; then
+    echo "rpcservertimeout=$RPCSERVERTIMEOUT"
+fi
+

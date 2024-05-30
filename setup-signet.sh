@@ -1,7 +1,7 @@
 PRIVKEY=${PRIVKEY:-$(cat ~/.bitcoin/PRIVKEY.txt)}
 DATADIR=${DATADIR:-~/.bitcoin/}
 bitcoind -datadir=$DATADIR --daemonwait -persistmempool -deprecatedrpc=create_bdb
-bitcoin-cli -datadir=$DATADIR -named createwallet wallet_name="custom_signet" load_on_startup=true descriptors=false
+bitcoin-cli -datadir=$DATADIR -named createwallet wallet_name="citrea" load_on_startup=true descriptors=false
 
 #only used in case of mining node
 if [[ "$MINERENABLED" == "1" ]]; then
