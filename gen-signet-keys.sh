@@ -30,7 +30,7 @@ if [[ "$MINERENABLED" == "1" && ("$SIGNETCHALLENGE" == "" || "$PRIVKEY" == "") ]
     rpcpassword=bitcoin
     " >$DATADIR/bitcoin.conf
     #start daemon
-    $BITCOIND -wallet="temp"
+    $BITCOIND -wallet="temp" -deprecatedrpc=create_bdb
     #wait a bit for startup
     sleep 5s
     #create wallet
