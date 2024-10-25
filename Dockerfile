@@ -1,6 +1,6 @@
 FROM debian:buster-slim as builder
 
-ARG BITCOIN_VERSION=${BITCOIN_VERSION:-c23afab47fbe}
+ARG BITCOIN_VERSION=${BITCOIN_VERSION:-d8434da3c14e}
 
 ARG TARGETPLATFORM  
 
@@ -14,7 +14,7 @@ WORKDIR /tmp
    linux/arm64) \
      echo "arm64" && export TRIPLET="aarch64-linux-gnu";; \
    esac && \
-   BITCOIN_URL="https://github.com/benthecarman/bitcoin/releases/download/mutinynet-cat-lnhance/bitcoin-${BITCOIN_VERSION}-${TRIPLET}.tar.gz" && \
+   BITCOIN_URL="https://github.com/benthecarman/bitcoin/releases/download/custom-signet-blocktime/bitcoin-${BITCOIN_VERSION}-${TRIPLET}.tar.gz" && \
    BITCOIN_FILE="bitcoin-${BITCOIN_VERSION}-${TRIPLET}.tar.gz" && \
    wget -qO "${BITCOIN_FILE}" "${BITCOIN_URL}" && \
    mkdir -p bin && \
@@ -49,7 +49,7 @@ ENV RPCBIND=${RPCBIND:-"0.0.0.0:38332"}
 ENV RPCALLOWIP=${RPCALLOWIP:-"0.0.0.0/0"}
 ENV WHITELIST=${WHITELIST:-"0.0.0.0/0"}
 ENV ADDNODE=${ADDNODE:-""}
-ENV BLOCKPRODUCTIONDELAY=${BLOCKPRODUCTIONDELAY:-"10"}
+ENV BLOCKPRODUCTIONDELAY=${BLOCKPRODUCTIONDELAY:-"30"}
 ENV MINERENABLED=${MINERENABLED:-"1"}
 ENV MINETO=${MINETO:-""}
 ENV EXTERNAL_IP=${EXTERNAL_IP:-""} 
