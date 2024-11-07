@@ -26,6 +26,10 @@ if [[ "$EXTERNAL_IP" != "" ]]; then
     done
 fi
 
+echo "rpcthreads=$RPCTHREADS
+rpcservertimeout=$RPCSERVERTIMEOUT
+rpcworkqueue=$RPCWORKQUEUE"
+
 echo "[signet]
 rest=1
 daemon=1
