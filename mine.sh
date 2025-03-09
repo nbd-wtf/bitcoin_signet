@@ -1,5 +1,19 @@
 #!/bin/bash
 NBITS=${NBITS:-"1e0377ae"} #minimum difficulty in signet
+ADDR=$(get_next_address)    # It will get the first address from the wallet ie. cusomt_signet
+
+# Initial mining of 100 blocks if blocks count is less than 100
+BLOCKS_COUNT=$(bitcoin-cli -rpcwallet=custom_signet getblockcount)
+if [[ $BLOCKS_COUNT -lt 100 ]]; then
+    echo "Mining initial 100 blocks"
+    for ((i = BLOCKS_COUNT; i <= 100; i++)); do
+        echo "Minining initial block $i"
+        miner --cli="bitcoin-cli -rpcwallet=custom_signet" generate --grind-cmd="bitcoin-util grind" --address=$ADDR --nbits=$NBITS --set-block-time=$(date +%s)
+    done
+else
+    echo "Starting bitcoind mining from block $BLOCKS_COUNT"
+fi
+
 
 while true; do
     if [[ -f "${BITCOIN_DIR}/MINE_ADDRESS.txt" ]]; then
