@@ -1,0 +1,26 @@
+services:
+  bitcoind-miner:
+    build: 
+      context: .
+      dockerfile: official.Dockerfile  
+      args:
+        TARGETPLATFORM: linux/arm64 
+    container_name: bitcoin-miner-28.1
+    env_file: 
+      .env
+    environment:
+      BLOCKPRODUCTIONDELAY: 600
+      RPCUSER: user
+      RPCPASSWORD: password
+      PRIVKEY: $PRIVKEY
+      SIGNETCHALLENGE: $SIGNETCHALLENGE
+      MINERENABLED: $MINERENABLED
+      OFFICIAL_MINING: true
+
+    ports:
+      - "28332:28332"
+      - "28333:28333"
+      - "28334:28334"
+      - "38332:38332"
+      - "38333:38333"
+      - "38334:38334"

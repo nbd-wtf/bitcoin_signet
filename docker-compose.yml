@@ -22,21 +22,21 @@ services:
       - "38333:38333"
       - "38334:38334"
 
-  bitcoind-fullnode:
-    container_name: bitcoin-fullnode
-    # image: alpen_signet:1.0
-    build:
-      context: .
-      dockerfile: Dockerfile
+  # bitcoind-fullnode:
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile 
+  #   container_name: bitcoin-fullnode
+  #   # image: public.ecr.aws/s6b4k6i9/strata/signet:mw0.0.2
+  #   image: signet:100premine1
+  #   environment:
+  #     BLOCKPRODUCTIONDELAY: 10
+  #     RPCPASSWORD: password
+  #     SIGNETCHALLENGE: 512102a772f06f3860f4c1b803734db603f1c0cd86601a27670aadf5ff364a1d34f92551ae
+  #     MINERENABLED: 0
+  #     ADDNODE: bitcoin-miner:38333
 
-    environment:
-      BLOCKPRODUCTIONDELAY: 10
-      RPCPASSWORD: password
-      SIGNETCHALLENGE: 512102a772f06f3860f4c1b803734db603f1c0cd86601a27670aadf5ff364a1d34f92551ae
-      MINERENABLED: 0
-      ADDNODE: bitcoin-miner:38333
-
-    ports:
-      - "38335:38332"
-      - "38336:38333"
-      - "38337:38334"
+  #   ports:
+  #     - "38335:38332"
+  #     - "38336:38333"
+  #     - "38337:38334"
