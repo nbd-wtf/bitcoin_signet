@@ -1,7 +1,10 @@
 services:
   bitcoind-miner:
     container_name: bitcoin-miner
-    image: alpen_signet:1.0
+    # image: alpen_signet:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     env_file: 
       .env
     environment:
@@ -21,7 +24,10 @@ services:
 
   bitcoind-fullnode:
     container_name: bitcoin-fullnode
-    image: alpen_signet:1.0
+    # image: alpen_signet:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
 
     environment:
       BLOCKPRODUCTIONDELAY: 10
