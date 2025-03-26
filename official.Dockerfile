@@ -14,7 +14,7 @@ RUN case $TARGETPLATFORM in \
   linux/arm64) \
   echo "arm64" && export TRIPLET="aarch64-linux-gnu";; \
   esac && \
-  BITCOIN_URL="https://bitcoincore.org/bin/bitcoin-core-28.1/bitcoin-${BITCOIN_VERSION}-${TRIPLET}.tar.gz" && \
+  BITCOIN_URL="https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-${TRIPLET}.tar.gz" && \
   BITCOIN_FILE="bitcoin-${BITCOIN_VERSION}-${TRIPLET}.tar.gz" && \
   wget -qO "${BITCOIN_FILE}" "${BITCOIN_URL}" && \
   mkdir -p bin && \
@@ -32,9 +32,6 @@ LABEL org.opencontainers.image.source="https://github.com/alpenlabs/bitcoin_sign
 
 ENV BITCOIN_DIR /root/.bitcoin 
 
-# ENV NBITS=${NBITS}
-ENV SIGNETCHALLENGE=${SIGNETCHALLENGE}
-ENV PRIVKEY=${PRIVKEY}
 
 ENV RPCUSER=${RPCUSER:-"bitcoin"}
 ENV RPCPASSWORD=${RPCPASSWORD:-"bitcoin"}
