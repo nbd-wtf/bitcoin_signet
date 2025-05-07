@@ -18,7 +18,10 @@ peerblockfilters=1
 coinstatsindex=1
 dnsseed=0
 persistmempool=1
-uacomment=$UACOMMENT"
+uacomment=$UACOMMENT
+rpcthreads=$RPCTHREADS
+rpcservertimeout=$RPCSERVERTIMEOUT
+rpcworkqueue=$RPCWORKQUEUE"
 
 if [[ "$EXTERNAL_IP" != "" ]]; then
     echo $EXTERNAL_IP | tr ',' '\n' | while read ip; do
@@ -38,7 +41,12 @@ zmqpubhashblock=$ZMQPUBHASHBLOCK
 rpcbind=$RPCBIND
 rpcallowip=$RPCALLOWIP
 whitelist=$WHITELIST
-fallbackfee=0.0002"
+fallbackfee=0.0002
+acceptnonstdtxn=1
+v2transport=1
+minrelaytxfee=0.0
+blockmintxfee=0.0
+dustRelayFee=0.0"
 
 if [[ "$ADDNODE" != "" ]]; then
     echo $ADDNODE | tr ',' '\n' | while read node; do
