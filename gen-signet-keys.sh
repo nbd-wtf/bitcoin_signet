@@ -1,6 +1,6 @@
 DATADIR=${DATADIR:-"regtest-temp"}
 BITCOINCLI=${BITCOINCLI:-"bitcoin-cli -regtest -datadir=$DATADIR "}
-BITCOIND=${BITCOIND:-"bitcoind -datadir=$DATADIR -regtest -daemon "}
+BITCOIND=${BITCOIND:-"bitcoind -datadir=$DATADIR -regtest -daemon -deprecatedrpc=create_bdb"}
 
 write_files() {
     # echo "ADDR=" $ADDR
@@ -34,10 +34,9 @@ if [[ "$MINERENABLED" == "1" && ("$SIGNETCHALLENGE" == "" || "$PRIVKEY" == "") ]
     #wait a bit for startup
     sleep 5s
     #create wallet
-    # todo, redo to work with descriptors
-    $BITCOINCLI -named createwallet wallet_name="tmp" descriptors=false
+    $BITCOINCLI -named createwallet wallet_name="temp" descriptors=false
     #export future signet seeding key data
-    ADDR=$($BITCOINCLI getnewaddress)
+    ADDR=$($BITCOINCLI getnewaddress "" legacy)
     PRIVKEY=$($BITCOINCLI dumpprivkey $ADDR)
     PUBKEY=$($BITCOINCLI getaddressinfo $ADDR | jq .pubkey | tr -d '""')
     #don't need regtest anymore
