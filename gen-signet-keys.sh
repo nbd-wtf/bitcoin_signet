@@ -1,14 +1,15 @@
 DATADIR=${DATADIR:-"regtest-temp"}
 BITCOINCLI=${BITCOINCLI:-"bitcoin-cli -regtest -datadir=$DATADIR "}
-BITCOIND=${BITCOIND:-"bitcoind -datadir=$DATADIR -regtest -daemon -deprecatedrpc=create_bdb"}
+BITCOIND=${BITCOIND:-"bitcoind -datadir=$DATADIR -regtest -daemon"}
 
 write_files() {
     # echo "ADDR=" $ADDR
-    echo "PRIVKEY=" $PRIVKEY
+    echo "PRIVKEY=" 
+    cat ~/.bitcoin/PRIVKEY.txt
     # echo "PUBKEY=" $PUBKEY
     echo "SIGNETCHALLENGE=" $SIGNETCHALLENGE
-    # echo $ADDR > ~/.bitcoin/ADDR.txt
-    echo $PRIVKEY >~/.bitcoin/PRIVKEY.txt
+     echo $ADDR > ~/.bitcoin/ADDR.txt
+   # echo $PRIVKEY >~/.bitcoin/PRIVKEY.txt
     # echo $PUBKEY > ~/.bitcoin/PUBKEY.txt
     echo $SIGNETCHALLENGE >~/.bitcoin/SIGNETCHALLENGE.txt
 }
@@ -33,15 +34,26 @@ if [[ "$MINERENABLED" == "1" && ("$SIGNETCHALLENGE" == "" || "$PRIVKEY" == "") ]
     $BITCOIND -wallet="temp"
     #wait a bit for startup
     sleep 5s
+    
     #create wallet
-    $BITCOINCLI -named createwallet wallet_name="temp" descriptors=false
-    #export future signet seeding key data
-    ADDR=$($BITCOINCLI getnewaddress "" legacy)
-    PRIVKEY=$($BITCOINCLI dumpprivkey $ADDR)
-    PUBKEY=$($BITCOINCLI getaddressinfo $ADDR | jq .pubkey | tr -d '""')
+    $BITCOINCLI -named createwallet wallet_name="temp" descriptors=true
+    #Le
+    ##export future signet seeding key data
+    #ADDR=$($BITCOINCLI getnewaddress "" legacy)
+    #PRIVKEY=$($BITCOINCLI dumpprivkey $ADDR)
+    #PUBKEY=$($BITCOINCLI getaddressinfo $ADDR | jq .pubkey | tr -d '""')
+
+    
+
+    #Get the signet script from the 86 descriptor
+    ADDR=$($BITCOINCLI getnewaddress)
+    SIGNETCHALLENGE=$($BITCOINCLI getaddressinfo $ADDR | jq -r ".scriptPubKey")
+    # Dumping descriptor wallet privatekey 
+    $BITCOINCLI listdescriptors true | jq -r ".descriptors | .[].desc" >> ~/.bitcoin/PRIVKEY.txt
+    
     #don't need regtest anymore
     $BITCOINCLI stop
-    SIGNETCHALLENGE=$(echo '5121'$PUBKEY'51ae')
+   # SIGNETCHALLENGE=$(echo '5121'$PUBKEY'51ae')
 
     #cleanup
     rm -rf $DATADIR
