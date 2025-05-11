@@ -1,3 +1,4 @@
+touch ${BITCOIN_DIR}/uses_modern_wallet
 echo "Generate or import keyset"
 gen-signet-keys.sh
 echo "Generate bitcoind configuration"
@@ -11,4 +12,3 @@ if [[ "$MINE_GENESIS" == "1" ]]; then
 fi
 
 touch ${BITCOIN_DIR}/install_done
-touch ${BITCOIN_DIR}/uses_modern_wallet

@@ -58,7 +58,10 @@ if [[ "$MINERENABLED" == "1" && ("$SIGNETCHALLENGE" == "" || "$PRIVKEY" == "") ]
     #cleanup
     rm -rf $DATADIR
 else
+    echo "$PRIVKEY" > ~/.bitcoin/PRIVKEY.txt
+    echo "$SIGNETCHALLENGE" > ~/.bitcoin/SIGNETCHALLENGE.txt
     echo "Imported signetchallange and privkey being used."
+
 fi
 
 write_files
