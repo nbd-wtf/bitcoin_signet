@@ -2,22 +2,27 @@
 
 ## 📌 Table of Contents
 
-- [🔍 Overview](#-overview)
-- [🛠 Environment Variables](#-environment-variables)
-  - [⛏ Mining Configuration](#-mining-configuration)
-  - [🌐 RPC Configuration](#-rpc-configuration)
-  - [🌍 Network Configuration](#-network-configuration)
-  - [📡 ZMQ Configuration](#-zmq-configuration)
-  - [🔧 Additional Configuration](#-additional-configuration)
-- [🚀 Building and Running the Docker Image](#-building-and-running-the-docker-image)
-- [🔧 Docker Commands](#-docker-commands)
-- [📜 License](#-license)
+- [Bitcoin Signet Docker Image](#bitcoin-signet-docker-image)
+  - [📌 Table of Contents](#-table-of-contents)
+  - [🔍 Overview](#-overview)
+  - [🛠 Environment Variables](#-environment-variables)
+    - [⛏ Mining Configuration:](#-mining-configuration)
+    - [🌐 RPC Configuration:](#-rpc-configuration)
+    - [🌍 Network Configuration:](#-network-configuration)
+    - [📡 ZMQ Configuration:](#-zmq-configuration)
+    - [🔧 Additional Configuration:](#-additional-configuration)
+  - [🚀 Building and Running the Docker Image](#-building-and-running-the-docker-image)
+  - [🔧 Docker Commands](#-docker-commands)
+  - [📜 License](#-license)
 
 ---
 
 ## 🔍 Overview
 
 Bitcoin Signet provides a sandboxed environment for Bitcoin, allowing developers and testers to simulate the Bitcoin network without the risks associated with the main or test networks. This Docker image facilitates the deployment and configuration of a Signet node, offering a range of customizable options through environment variables.
+
+Versions prior to 29.0 were using BDB wallet, system will automaticly update your wallet to new descriptor format.
+`PRIVKEY` prior to 29.0 was a WIF, now is descriptor on new wallets. 
 
 ## 🛠 Environment Variables
 
@@ -28,15 +33,21 @@ Bitcoin Signet provides a sandboxed environment for Bitcoin, allowing developers
 - `MINERENABLED`: Flag to enable the mining chain. (**mining mode only**)
 - `NBITS`: Sets the minimum difficulty in mining. (**mining mode only**)
 - `PRIVKEY`: Private key of the Signet signer. If `MINERENABLED=1` and not provided, it will be generated. (**mining mode only**)
+- `PRIVKEY_MODE`: `descriptor` - provide descriptors (wallets from >=v29.0) or `legacy` - provide WIF (method used prior to <v29.0 to init signet challenge)
 - `MINETO`: Address to mine to. If not provided, a new address will be generated for each block. (**mining mode only**)
 - `SIGNETCHALLENGE`: Sets the valid block producer for this Signet. Required for client-mode.
-  - If `MINERENABLED=1` and not provided, it will be generated. If provided, `PRIVKEY` must also be populated.
+- If `MINERENABLED=1` and not provided, it will be generated. If provided, `PRIVKEY` must also be populated.
+- `CHAIN_TIP_AGE`: 7200s (2hrs), will not start miner until chain-tip timestamp vs local is <= this value, allows things to sync up before trying to mine bad blacks.
+- `MINE_GENESIS`: set to 1 if you are starting a new chain, will mine first block so passes `CHAIN_TIP_AGE` check.
 
 ### 🌐 RPC Configuration:
 
 - `RPCUSER`: bitcoind RPC User.
 - `RPCPASSWORD`: bitcoind RPC password.
-
+- `RPCTHREADS`: # of work threads (default 16)
+- `RPCSERVERTIMEOUT`: RPC timeout (default 600s)
+- `RPCWORKQUEUE`: RPC queue lenght (50)
+ 
 ### 🌍 Network Configuration:
 
 - `ONIONPROXY`: Tor SOCK5 endpoint.
