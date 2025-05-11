@@ -3,7 +3,6 @@ set -Eeuo pipefail
 # Define mining constants
 CLI="bitcoin-cli -datadir=${BITCOIN_DIR}" 
 GRIND="bitcoin-util grind"
-MINING_DESC=$($CLI listdescriptors | jq -r ".descriptors | .[4].desc")
 
 NBITS=${NBITS:-"1e0377ae"} #minimum difficulty in signet
 
@@ -21,7 +20,7 @@ while true; do
             sleep $BLOCKPRODUCTIONDELAY
         fi
     fi
-    #echo "Mine To:" $ADDR
+    #echo "Mine To:" $ADDR --addr=$ADDR 
     miner --cli="bitcoin-cli" generate --grind-cmd="bitcoin-util grind" --addr=$ADDR --nbits=$NBITS  --set-block-time=$(date +%s) 
 done
 
